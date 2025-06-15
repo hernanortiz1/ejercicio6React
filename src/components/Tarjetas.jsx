@@ -18,10 +18,10 @@ const Tarjetas = () => {
               <div className="text-end ">
                 <Button
                   type="submit"
-                  variant="primary"
+                  variant="danger"
                   className="px-3 shadow-sm"
                 >
-                  Guardar
+                  Borrar
                 </Button>
               </div>
             </Card.Footer>
