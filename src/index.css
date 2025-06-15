@@ -1,12 +1,12 @@
-#root{
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-  main {
-    flex-grow: 1;
-  }
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+main {
+  flex-grow: 1;
+}
 
-  .fondoPrincipal{
-    background-color: rgba(129, 180, 247, 0.49);
-  }
+.fondoPrincipal {
+  background-color: rgba(129, 180, 247, 0.49);
+}
