@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <main className="container my-4">
-        <section className="shadow px-3 fondoPrincipal rounded-4">
+        <section className="shadow rounded-4">
           <h1 className="text-center py-3">Administrar Colores</h1>
           <FormularioColor />
         </section>
