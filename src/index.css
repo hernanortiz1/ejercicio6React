@@ -1,0 +1,13 @@
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+    background-color: rgba(0, 0, 0, 0.067);
+}
+main {
+  flex-grow: 1;
+}
+
+.fondoFormulario {
+  background-color: rgba(129, 180, 247, 0.49);
+}
