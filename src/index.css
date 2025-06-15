@@ -6,3 +6,7 @@
   main {
     flex-grow: 1;
   }
+
+  .fondoPrincipal{
+    background-color: rgba(129, 180, 247, 0.49);
+  }
