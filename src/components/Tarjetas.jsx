@@ -1,6 +1,6 @@
 import { Card, CardGroup, Form, Button } from "react-bootstrap";
 
-const Tarjetas = () => {
+const Tarjetas = ({ nombreColor, borrarColorProps}) => {
   return (
     <section className="p-3">
       <div className="row row-cols-2 row-cols-md-3 g-4">

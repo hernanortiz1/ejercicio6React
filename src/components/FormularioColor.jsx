@@ -3,6 +3,7 @@ import CuadroColor from "./CuadroColor";
 import Card from "./Tarjetas";
 import Tarjetas from "./Tarjetas";
 import { useState } from "react";
+import ListaTareas from "../../../ejercicio4/src/components/ListaTareas";
 
 const FormularioColor = () => {
   const [color, setColor] = useState("");
@@ -19,7 +20,7 @@ const FormularioColor = () => {
     setColor("");
   };
 
-  const borrarTarea = (nombreColor) => {
+  const borrarColor = (nombreColor) => {
     const indice = tareas.findIndex((item) => item === nombreColor);
     //actualizar estado tareas
     if (indice !== -1) {
@@ -27,7 +28,7 @@ const FormularioColor = () => {
       const nuevosColores = [...colores];
       //elimino con splice y actualizo
       nuevosColores.splice(indice, 1);
-      setTareas(nuevosColores);
+      setColores(nuevosColores);
     }
   };
 
@@ -61,7 +62,7 @@ const FormularioColor = () => {
           </div>
         </section>
       </div>
-      <Tarjetas />
+      <ListaTareas colorProps={colores} borrarColorProps={borrarColor}/>
     </>
   );
 };
