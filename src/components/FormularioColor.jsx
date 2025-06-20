@@ -9,17 +9,17 @@ const FormularioColor = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setColores([...colores, color]);
-  
+
     //limpiar formulario
     setColor("");
   };
 
   const borrarColor = (nombreColor) => {
     const indice = colores.findIndex((item) => item === nombreColor);
- 
-    if (indice !== -1) {   
+
+    if (indice !== -1) {
       const nuevosColores = [...colores];
-   
+
       nuevosColores.splice(indice, 1);
       setColores(nuevosColores);
     }
@@ -27,7 +27,7 @@ const FormularioColor = () => {
 
   return (
     <>
-      <div className="fondoFormulario py-3 mb-5">
+      <div className="fondoFormulario py-3 mb-5  shadow rounded-4">
         <section className="row px-4">
           <div className=" col-4 col-md-2">
             <div
@@ -62,7 +62,12 @@ const FormularioColor = () => {
           </div>
         </section>
       </div>
-      <ListaTarjetas colorProps={colores} borrarColorProps={borrarColor} />
+      <section>
+        <h3 className="fs-2 text-center mb-3">Lista de colores</h3>
+        <div className="text-center shadow rounded-3 bg-primary-subtle">
+          <ListaTarjetas colorProps={colores} borrarColorProps={borrarColor} />
+        </div>
+      </section>
     </>
   );
 };
