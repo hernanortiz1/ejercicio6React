@@ -1,9 +1,9 @@
-import CardGroup from "react-bootstrap/CardGroup";
 import Tarjetas from "./Tarjetas";
+
 
 const ListaTarjetas = ({ colorProps, borrarColorProps }) => {
   return (
-    <CardGroup>
+    <div className="row row-cols-2 row-cols-md-3">
       {colorProps.map((item, indice) => (
         <Tarjetas
           key={indice}
@@ -11,7 +11,7 @@ const ListaTarjetas = ({ colorProps, borrarColorProps }) => {
           borrarColorProps={borrarColorProps}
         />
       ))}
-    </CardGroup>
+    </div>
   );
 };
 

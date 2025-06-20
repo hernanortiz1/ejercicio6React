@@ -8,7 +8,6 @@ const FormularioColor = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("guardar tarea");
     setColores([...colores, color]);
   
     //limpiar formulario
@@ -16,7 +15,7 @@ const FormularioColor = () => {
   };
 
   const borrarColor = (nombreColor) => {
-    const indice = tareas.findIndex((item) => item === nombreColor);
+    const indice = colores.findIndex((item) => item === nombreColor);
  
     if (indice !== -1) {   
       const nuevosColores = [...colores];

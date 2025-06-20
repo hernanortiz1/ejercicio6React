@@ -1,10 +1,11 @@
-import { Card, CardGroup, Form, Button } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
+import Swal from 'sweetalert2'
 
 const Tarjetas = ({ nombreColor, borrarColorProps }) => {
   const confirmarBorrado = () => {
     Swal.fire({
       title: "¿Estás seguro?",
-      text: `La tarea ${nombreColor} se eliminará`,
+      text: `El color ${nombreColor} se eliminará`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -16,8 +17,8 @@ const Tarjetas = ({ nombreColor, borrarColorProps }) => {
         borrarColorProps(nombreColor);
 
         Swal.fire({
-          title: "Eliminada",
-          text: `La tarea  ${nombreColor} fue borrada correctamente`,
+          title: "Eliminado",
+          text: `El color  ${nombreColor} fue borrado correctamente`,
           icon: "success",
           timer: 1200,
           showConfirmButton: false,
@@ -28,7 +29,7 @@ const Tarjetas = ({ nombreColor, borrarColorProps }) => {
 
   return (
     <section className="p-3">
-      <div className="row row-cols-2 row-cols-md-3 g-4">
+      <div>
         <div className="col">
           <Card>
             <Card.Title className="m-2 text-center">
