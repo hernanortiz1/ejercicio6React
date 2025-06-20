@@ -1,9 +1,6 @@
 import { Form, Button } from "react-bootstrap";
-import CuadroColor from "./CuadroColor";
-import Card from "./Tarjetas";
-import Tarjetas from "./Tarjetas";
 import { useState } from "react";
-import ListaTareas from "../../../ejercicio4/src/components/ListaTareas";
+import ListaTarjetas from "./ListaTarjetas";
 
 const FormularioColor = () => {
   const [color, setColor] = useState("");
@@ -12,21 +9,18 @@ const FormularioColor = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("guardar tarea");
-    // tomar tarea de state y guardar en state tareas (array)
-    //... operado expred, copia los elementos de array tareas y al final le agrego la ultima tarea que agrego el usr
     setColores([...colores, color]);
-
+  
     //limpiar formulario
     setColor("");
   };
 
   const borrarColor = (nombreColor) => {
     const indice = tareas.findIndex((item) => item === nombreColor);
-    //actualizar estado tareas
-    if (indice !== -1) {
-      //copio el array original
+ 
+    if (indice !== -1) {   
       const nuevosColores = [...colores];
-      //elimino con splice y actualizo
+   
       nuevosColores.splice(indice, 1);
       setColores(nuevosColores);
     }
@@ -37,7 +31,14 @@ const FormularioColor = () => {
       <div className="fondoFormulario py-3 mb-5">
         <section className="row px-4">
           <div className=" col-4 col-md-2">
-            <CuadroColor />
+            <div
+              style={{
+                height: "100px",
+                backgroundColor: color || "transparent",
+                border: "2px solid #000",
+                borderRadius: "5px",
+              }}
+            ></div>
           </div>
           <div className="col-8 col-md-10">
             <Form onSubmit={handleSubmit}>
@@ -62,7 +63,7 @@ const FormularioColor = () => {
           </div>
         </section>
       </div>
-      <ListaTareas colorProps={colores} borrarColorProps={borrarColor}/>
+      <ListaTarjetas colorProps={colores} borrarColorProps={borrarColor} />
     </>
   );
 };
