@@ -2,8 +2,35 @@ import { Form, Button } from "react-bootstrap";
 import CuadroColor from "./CuadroColor";
 import Card from "./Tarjetas";
 import Tarjetas from "./Tarjetas";
+import { useState } from "react";
 
 const FormularioColor = () => {
+  const [color, setColor] = useState("");
+  const [colores, setColores] = useState([]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("guardar tarea");
+    // tomar tarea de state y guardar en state tareas (array)
+    //... operado expred, copia los elementos de array tareas y al final le agrego la ultima tarea que agrego el usr
+    setColores([...colores, color]);
+
+    //limpiar formulario
+    setColor("");
+  };
+
+  const borrarTarea = (nombreColor) => {
+    const indice = tareas.findIndex((item) => item === nombreColor);
+    //actualizar estado tareas
+    if (indice !== -1) {
+      //copio el array original
+      const nuevosColores = [...colores];
+      //elimino con splice y actualizo
+      nuevosColores.splice(indice, 1);
+      setTareas(nuevosColores);
+    }
+  };
+
   return (
     <>
       <div className="fondoFormulario py-3 mb-5">
@@ -12,11 +39,13 @@ const FormularioColor = () => {
             <CuadroColor />
           </div>
           <div className="col-8 col-md-10">
-            <Form>
+            <Form onSubmit={handleSubmit}>
               <Form.Group className="ms-2 mb-3 mt-md-3">
                 <Form.Control
                   type="text"
                   placeholder="Ingresa un color ej: Blue"
+                  onChange={(e) => setColor(e.target.value)}
+                  value={color}
                 />
                 <div className="text-end ">
                   <Button
