@@ -35,7 +35,7 @@ const Tarjetas = ({ nombreColor, borrarColorProps }) => {
             <Card.Title className="m-2 text-center">
               Color: {nombreColor}
             </Card.Title>
-            <Card.Body className="fondoFormulario d-flex justify-content-center">
+            <Card.Body className="bg-dark-subtle d-flex justify-content-center">
               <div
                 className="shadow"
                 style={{

@@ -5,13 +5,20 @@ import ListaTarjetas from "./ListaTarjetas";
 const FormularioColor = () => {
   const [color, setColor] = useState("");
   const [colores, setColores] = useState([]);
+  const [validated, setValidated] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setColores([...colores, color]);
 
-    //limpiar formulario
+    const form = e.currentTarget;
+    if (!colorValido(color)) {
+      setValidated(true);
+      return;
+    }
+
+    setColores([...colores, color]);
     setColor("");
+    setValidated(false);
   };
 
   const borrarColor = (nombreColor) => {
@@ -23,6 +30,12 @@ const FormularioColor = () => {
       nuevosColores.splice(indice, 1);
       setColores(nuevosColores);
     }
+  };
+
+  const colorValido = (color) => {
+    const colorIngresado = new Option().style;
+    colorIngresado.color = color;
+    return colorIngresado.color !== "";
   };
 
   return (
@@ -47,12 +60,17 @@ const FormularioColor = () => {
                   placeholder="Ingresa un color ej: Blue"
                   onChange={(e) => setColor(e.target.value)}
                   value={color}
+                  isInvalid={validated && !colorValido(color)}
                 />
+                <Form.Control.Feedback>Color valido</Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid">
+                  Color inválido. Ingrese un nombre de color válido
+                </Form.Control.Feedback>
                 <div className="text-end ">
                   <Button
                     type="submit"
                     variant="primary"
-                    className="m-3 px-4 shadow-sm"
+                    className="px-4 mt-4 shadow-sm"
                   >
                     Guardar
                   </Button>
