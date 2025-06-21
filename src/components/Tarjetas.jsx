@@ -1,18 +1,50 @@
-import { Card, CardGroup, Form, Button } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
+import Swal from 'sweetalert2'
 
-const Tarjetas = () => {
+const Tarjetas = ({ nombreColor, borrarColorProps }) => {
+  const confirmarBorrado = () => {
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: `El color ${nombreColor} se eliminará`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, borrar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        borrarColorProps(nombreColor);
+
+        Swal.fire({
+          title: "Eliminado",
+          text: `El color  ${nombreColor} fue borrado correctamente`,
+          icon: "success",
+          timer: 1200,
+          showConfirmButton: false,
+        });
+      }
+    });
+  };
+
   return (
     <section className="p-3">
-      <div className="row row-cols-2 row-cols-md-3 g-4">
+      <div>
         <div className="col">
           <Card>
-            <Card.Title className="m-2 text-center">Color: </Card.Title>
-            <Card.Body className="fondoFormulario">
-              <Card.Text>
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content. This content is a little bit
-                longer.
-              </Card.Text>
+            <Card.Title className="m-2 text-center">
+              Color: {nombreColor}
+            </Card.Title>
+            <Card.Body className="bg-dark-subtle d-flex justify-content-center">
+              <div
+                className="shadow"
+                style={{
+                  backgroundColor: `${nombreColor}`,
+                  width: "100px",
+                  height: "100px",
+                  borderRadius: "10px",
+                }}
+              ></div>
             </Card.Body>
             <Card.Footer>
               <div className="text-end ">
@@ -20,6 +52,7 @@ const Tarjetas = () => {
                   type="submit"
                   variant="danger"
                   className="px-3 shadow-sm"
+                  onClick={confirmarBorrado}
                 >
                   Borrar
                 </Button>
