@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 
 const FormularioColor = () => {
   const [listaColores, setlistaColor] = useState([]);
+  
   const [validated, setValidated] = useState(false);
 
   const [ventanaBusqueda, setVentanaBusqueda] = useState(false);
@@ -52,7 +53,7 @@ const FormularioColor = () => {
       return;
     }
 
-    const filtradas = lista.filter((ingresoTarea) =>
+    const filtradas = listaColores.filter((ingresoTarea) =>
       ingresoTarea.inputTarea.toLowerCase().includes(busqueda.toLowerCase())
     );
     setResultadosBusqueda(filtradas);

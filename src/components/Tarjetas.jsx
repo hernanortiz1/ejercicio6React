@@ -34,14 +34,14 @@ const Tarjetas = ({ nombreColor, posicion, obtenerColor }) => {
             timer: 1200,
             showConfirmButton: false,
           });
-          obtenerColor()
+          obtenerColor();
         }
       }
     });
   };
 
   const editarColor = async () => {
-    const colorParaEditar = { inputColor: colorEditado};
+    const colorParaEditar = { inputColor: colorEditado };
     const respuesta = await editarColor(colorParaEditar, nombreColor._id);
     if (respuesta.status === 200) {
       Swal.fire({
@@ -53,6 +53,21 @@ const Tarjetas = ({ nombreColor, posicion, obtenerColor }) => {
     }
   };
 
+  const guardarCambios = () => {
+    if (colorEditado.trim().length < 3) {
+      Swal.fire({
+        title: "Error",
+        text: "El color debe tener al menos 3 caracteres",
+        icon: "warning",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+      return;
+    }
+
+    editarColor();
+    handleClose();
+  };
 
   return (
     <section className="p-3">
@@ -60,13 +75,13 @@ const Tarjetas = ({ nombreColor, posicion, obtenerColor }) => {
         <div className="col">
           <Card>
             <Card.Title className="m-2 text-center">
-              Color: {nombreColor}
+              Color: {nombreColor.inputColor}
             </Card.Title>
             <Card.Body className="bg-dark-subtle d-flex justify-content-center">
               <div
                 className="shadow"
                 style={{
-                  backgroundColor: `${nombreColor}`,
+                  backgroundColor: `${nombreColor.inputColor}`,
                   width: "100px",
                   height: "100px",
                   borderRadius: "10px",
@@ -79,6 +94,7 @@ const Tarjetas = ({ nombreColor, posicion, obtenerColor }) => {
                   type="submit"
                   variant="warning"
                   className="px-3 shadow-sm"
+                  onClick={handleShow}
                 >
                   Editar
                 </Button>
@@ -95,6 +111,36 @@ const Tarjetas = ({ nombreColor, posicion, obtenerColor }) => {
           </Card>
         </div>
       </div>
+      {/* MODAL */}
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Editar</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3">
+              <Form.Label>Modificar color: {nombreColor.inputColor}</Form.Label>
+              <Form.Control
+                type="text"
+                value={colorEditado}
+                onChange={(e) => setColorEditado(e.target.value)}
+                autoFocus
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancelar
+          </Button>
+          <Button variant="primary" onClick={guardarCambios}>
+            Guardar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/*FIN MODAL */}
     </section>
   );
 };
