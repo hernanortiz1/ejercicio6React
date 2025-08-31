@@ -4,12 +4,13 @@ import ListaTarjetas from "./ListaTarjetas";
 import { crearColor, leerColor, esColorValido } from "../helpers/queries";
 import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
+import ClockLoader from "react-spinners/ClockLoader";
 
 const FormularioColor = () => {
   const [listaColores, setListaColor] = useState([]);
   const [colorInput, setColorInput] = useState("");
+  const [mostrarSpinner, setMostrarSpinner] = useState(false);
 
-  const [validated, setValidated] = useState(false);
   const [ventanaBusqueda, setVentanaBusqueda] = useState(false);
   const [busqueda, setBusqueda] = useState("");
   const [resultadosBusqueda, setResultadosBusqueda] = useState([]);
@@ -22,6 +23,7 @@ const FormularioColor = () => {
   } = useForm();
 
   const obtenerColor = async () => {
+    setMostrarSpinner(true);
     const respuesta = await leerColor();
     if (respuesta.status === 200) {
       const datos = await respuesta.json();
@@ -29,6 +31,7 @@ const FormularioColor = () => {
     } else {
       console.info("Error al buscar un color");
     }
+    setMostrarSpinner(false);
   };
 
   useEffect(() => {
@@ -71,7 +74,7 @@ const FormularioColor = () => {
           icon: "success",
         });
         reset();
-        setColorInput("")
+        setColorInput("");
         obtenerColor();
       } else {
         Swal.fire({
@@ -93,7 +96,9 @@ const FormularioColor = () => {
             <div
               style={{
                 height: "100px",
-                backgroundColor: esColorValido(colorInput) ? colorInput : "transparent",
+                backgroundColor: esColorValido(colorInput)
+                  ? colorInput
+                  : "transparent",
                 border: "2px solid #000",
                 borderRadius: "5px",
               }}
@@ -145,10 +150,22 @@ const FormularioColor = () => {
       <section>
         <h3 className="fs-2 text-center mb-3">Lista de colores</h3>
         <div className="text-center shadow rounded-3 bg-primary-subtle">
-          <ListaTarjetas
-            colorProps={listaColores}
-            obtenerColor={obtenerColor}
-          />
+          {mostrarSpinner ? (
+            <div className="my-4 d-flex justify-content-center align-items-center">
+              <ClockLoader
+                color="#0d6efd"
+                loading={mostrarSpinner}
+                size={100}
+              />
+            </div>
+          ) : listaColores.length === 0 ? (
+            <p className="fs-3 py-3">No hay colores para mostrar</p>
+          ) : (
+            <ListaTarjetas
+              colorProps={listaColores}
+              obtenerColor={obtenerColor}
+            />
+          )}
         </div>
 
         <Modal show={ventanaBusqueda} onHide={handleCloseBusqueda}>
