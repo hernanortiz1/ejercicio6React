@@ -1,7 +1,11 @@
-import { Card, Button } from "react-bootstrap";
-import Swal from 'sweetalert2'
+import { useState } from "react";
+import { Card, Button, Modal, ListGroup } from "react-bootstrap";
+import Swal from "sweetalert2";
+import { editarColor, borrarColorPorID } from "../helpers/queries";
 
-const Tarjetas = ({ nombreColor, borrarColorProps }) => {
+const Tarjetas = ({ nombreColor, posicion, obtenerColor }) => {
+  
+  
   const confirmarBorrado = () => {
     Swal.fire({
       title: "¿Estás seguro?",
@@ -48,13 +52,12 @@ const Tarjetas = ({ nombreColor, borrarColorProps }) => {
             </Card.Body>
             <Card.Footer>
               <div className="d-flex flex-column flex-md-row justify-content-center gap-2">
-                  <Button
+                <Button
                   type="submit"
                   variant="warning"
                   className="px-3 shadow-sm"
-                  
                 >
-                 Editar
+                  Editar
                 </Button>
                 <Button
                   type="submit"
@@ -64,7 +67,6 @@ const Tarjetas = ({ nombreColor, borrarColorProps }) => {
                 >
                   Borrar
                 </Button>
-                
               </div>
             </Card.Footer>
           </Card>
