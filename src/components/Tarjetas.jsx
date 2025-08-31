@@ -33,7 +33,7 @@ const Tarjetas = ({ nombreColor, posicion, obtenerColor }) => {
         if (respuesta.status === 200) {
           Swal.fire({
             title: "Eliminado",
-            text: `El color  ${nombreColor} fue borrado correctamente`,
+            text: `El color  ${nombreColor.inputColor} fue borrado correctamente`,
             icon: "success",
             timer: 1200,
             showConfirmButton: false,

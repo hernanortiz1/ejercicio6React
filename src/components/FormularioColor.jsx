@@ -71,6 +71,7 @@ const FormularioColor = () => {
           icon: "success",
         });
         reset();
+        setColorInput("")
         obtenerColor();
       } else {
         Swal.fire({
@@ -92,7 +93,7 @@ const FormularioColor = () => {
             <div
               style={{
                 height: "100px",
-                backgroundColor: listaColores || "transparent",
+                backgroundColor: esColorValido(colorInput) ? colorInput : "transparent",
                 border: "2px solid #000",
                 borderRadius: "5px",
               }}
@@ -117,6 +118,7 @@ const FormularioColor = () => {
                     validate: (value) =>
                       esColorValido(value) || "Ingrese un color CSS válido",
                   })}
+                  onChange={(e) => setColorInput(e.target.value)}
                 />
 
                 <div className="d-flex flex-column flex-md-row justify-content-end gap-2 mt-4">
