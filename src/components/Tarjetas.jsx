@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { Card, Button, Modal, Form } from "react-bootstrap";
 import Swal from "sweetalert2";
-import { editarColor, borrarColorPorID } from "../helpers/queries";
+import {
+  editarColor,
+  borrarColorPorID,
+  esColorValido,
+} from "../helpers/queries";
 
 const Tarjetas = ({ nombreColor, posicion, obtenerColor }) => {
   const [show, setShow] = useState(false);
@@ -54,6 +58,7 @@ const Tarjetas = ({ nombreColor, posicion, obtenerColor }) => {
   };
 
   const guardarCambios = () => {
+     const colorTrim = colorEditado.trim();
     if (colorEditado.trim().length < 3) {
       Swal.fire({
         title: "Error",
@@ -64,11 +69,19 @@ const Tarjetas = ({ nombreColor, posicion, obtenerColor }) => {
       });
       return;
     }
-
+    if (!esColorValido(colorTrim)) {
+      Swal.fire({
+        title: "Error",
+        text: "Ingrese un color CSS válido",
+        icon: "warning",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+      return;
+    }
     editarColorCard();
     handleClose();
   };
-
 
   return (
     <section className="p-3">
