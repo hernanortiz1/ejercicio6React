@@ -63,3 +63,9 @@ export const borrarColorPorID = async (id) => {
         return null
     }
 };
+
+export const esColorValido = (nombreColor) => {
+    const dato = new Option().style;
+    dato.color = nombreColor;
+    return dato.color !== "";
+  };

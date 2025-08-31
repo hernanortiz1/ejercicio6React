@@ -1,7 +1,7 @@
 import { Form, Button, Modal, ListGroup } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import ListaTarjetas from "./ListaTarjetas";
-import { crearColor, leerColor } from "../helpers/queries";
+import { crearColor, leerColor, esColorValido } from "../helpers/queries";
 import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
 
@@ -114,6 +114,8 @@ const FormularioColor = () => {
                       value: 20,
                       message: "El color debe tener 20 caracteres como máximo",
                     },
+                    validate: (value) =>
+                      esColorValido(value) || "Ingrese un color CSS válido",
                   })}
                 />
 

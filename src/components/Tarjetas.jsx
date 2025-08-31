@@ -69,6 +69,7 @@ const Tarjetas = ({ nombreColor, posicion, obtenerColor }) => {
     handleClose();
   };
 
+
   return (
     <section className="p-3">
       <div>
