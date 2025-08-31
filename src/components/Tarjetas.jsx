@@ -40,6 +40,20 @@ const Tarjetas = ({ nombreColor, posicion, obtenerColor }) => {
     });
   };
 
+  const editarColor = async () => {
+    const colorParaEditar = { inputColor: colorEditado};
+    const respuesta = await editarColor(colorParaEditar, nombreColor._id);
+    if (respuesta.status === 200) {
+      Swal.fire({
+        title: "Color editado",
+        text: `El color "${colorEditado}" fue editado correctamente`,
+        icon: "success",
+      });
+      obtenerColor();
+    }
+  };
+
+
   return (
     <section className="p-3">
       <div>
