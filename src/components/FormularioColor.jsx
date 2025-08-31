@@ -148,7 +148,7 @@ const FormularioColor = () => {
         </section>
       </div>
       <section>
-        <h3 className="fs-2 text-center mb-3">Lista de colores</h3>
+        <h3 className="fs-2 text-center mb-3 titulo">Lista de colores</h3>
         <div className="text-center shadow rounded-3 bg-primary-subtle">
           {mostrarSpinner ? (
             <div className="my-4 d-flex justify-content-center align-items-center">
