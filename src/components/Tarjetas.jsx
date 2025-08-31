@@ -1,32 +1,41 @@
 import { useState } from "react";
-import { Card, Button, Modal, ListGroup } from "react-bootstrap";
+import { Card, Button, Modal, Form } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { editarColor, borrarColorPorID } from "../helpers/queries";
 
 const Tarjetas = ({ nombreColor, posicion, obtenerColor }) => {
-  
-  
+  const [show, setShow] = useState(false);
+  const [colorEditado, setColorEditado] = useState(nombreColor.inputColor);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => {
+    setTareaEditada(nombreColor.inputColor);
+    setShow(true);
+  };
+
   const confirmarBorrado = () => {
     Swal.fire({
       title: "¿Estás seguro?",
-      text: `El color ${nombreColor} se eliminará`,
+      text: `El color ${nombreColor.inputColor} se eliminará`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Sí, borrar",
       cancelButtonText: "Cancelar",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        borrarColorProps(nombreColor);
-
-        Swal.fire({
-          title: "Eliminado",
-          text: `El color  ${nombreColor} fue borrado correctamente`,
-          icon: "success",
-          timer: 1200,
-          showConfirmButton: false,
-        });
+        const respuesta = await borrarTareaPorID(nombreColor._id);
+        if (respuesta.status === 200) {
+          Swal.fire({
+            title: "Eliminado",
+            text: `El color  ${nombreColor} fue borrado correctamente`,
+            icon: "success",
+            timer: 1200,
+            showConfirmButton: false,
+          });
+          obtenerColor()
+        }
       }
     });
   };
