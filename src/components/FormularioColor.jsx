@@ -6,8 +6,9 @@ const FormularioColor = () => {
   const [color, setColor] = useState("");
   const [validated, setValidated] = useState(false);
 
- const coloresGuardados= JSON.parse(localStorage.getItem("listaColores")) || [];
-const [colores, setColores] = useState(coloresGuardados);
+  const coloresGuardados =
+    JSON.parse(localStorage.getItem("listaColores")) || [];
+  const [colores, setColores] = useState(coloresGuardados);
 
   useEffect(() => {
     console.log("desde use effect");
@@ -74,13 +75,12 @@ const [colores, setColores] = useState(coloresGuardados);
                 <Form.Control.Feedback type="invalid">
                   Color inválido. Ingrese un nombre de color válido
                 </Form.Control.Feedback>
-                <div className="text-end ">
-                  <Button
-                    type="submit"
-                    variant="primary"
-                    className="px-4 mt-4 shadow-sm"
-                  >
+                <div className="d-flex flex-column flex-md-row justify-content-end gap-2 mt-4">
+                  <Button type="submit" variant="primary" className="shadow-sm">
                     Guardar
+                  </Button>
+                  <Button type="submit" variant="success" className="shadow-sm">
+                    Buscar
                   </Button>
                 </div>
               </Form.Group>

@@ -47,7 +47,15 @@ const Tarjetas = ({ nombreColor, borrarColorProps }) => {
               ></div>
             </Card.Body>
             <Card.Footer>
-              <div className="text-end ">
+              <div className="d-flex flex-column flex-md-row justify-content-center gap-2">
+                  <Button
+                  type="submit"
+                  variant="warning"
+                  className="px-3 shadow-sm"
+                  
+                >
+                 Editar
+                </Button>
                 <Button
                   type="submit"
                   variant="danger"
@@ -56,6 +64,7 @@ const Tarjetas = ({ nombreColor, borrarColorProps }) => {
                 >
                   Borrar
                 </Button>
+                
               </div>
             </Card.Footer>
           </Card>
