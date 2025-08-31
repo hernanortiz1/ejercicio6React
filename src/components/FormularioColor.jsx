@@ -1,20 +1,30 @@
 import { Form, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import ListaTarjetas from "./ListaTarjetas";
+import { leerColor } from "../helpers/queries";
+import Swal from "sweetalert2";
 
 const FormularioColor = () => {
-  const [color, setColor] = useState("");
+  const [color, setColor] = useState([]);
   const [validated, setValidated] = useState(false);
 
-  const coloresGuardados =
-    JSON.parse(localStorage.getItem("listaColores")) || [];
-  const [colores, setColores] = useState(coloresGuardados);
+const [ventanaBusqueda, setVentanaBusqueda] = useState(false);
+  const [busqueda, setBusqueda] = useState("");
+  const [resultadosBusqueda, setResultadosBusqueda] = useState([]);
 
-  useEffect(() => {
-    console.log("desde use effect");
+    const obtenerColor = async () => {
+      const respuesta = await leerColor();
+      if (respuesta.status === 200) {
+        const datos = await respuesta.json();
+        setColor(datos);
+      } else {
+        console.info("Error al buscar un tarea");
+      }
+    };
 
-    localStorage.setItem("listaColores", JSON.stringify(colores));
-  }, [colores]);
+     useEffect(() => {
+    obtenerColor();
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,11 +35,15 @@ const FormularioColor = () => {
       return;
     }
 
-    setColores([...colores, color]);
-    setColor("");
-    setValidated(false);
+  
   };
-
+  const handleShowBusqueda = () => {
+    setBusqueda("");
+    setResultadosBusqueda([]);
+    setVentanaBusqueda(true);
+  };
+   const handleCloseBusqueda = () => setVentanaBusqueda(false);
+   
   const borrarColor = (nombreColor) => {
     const indice = colores.findIndex((item) => item === nombreColor);
 
