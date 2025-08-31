@@ -6,7 +6,7 @@ function App() {
     <>
       <main className="container my-4">
         <section>
-          <h1 className="text-center py-3">Administrar Colores</h1>
+          <h1 className="text-center py-3 titulo" >Administrar Colores</h1>
          <FormularioColor /> 
         </section>
       </main>
