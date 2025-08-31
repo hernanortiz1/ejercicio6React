@@ -9,7 +9,7 @@ const Tarjetas = ({ nombreColor, posicion, obtenerColor }) => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => {
-    setTareaEditada(nombreColor.inputColor);
+    setColorEditado(nombreColor.inputColor);
     setShow(true);
   };
 
@@ -25,7 +25,7 @@ const Tarjetas = ({ nombreColor, posicion, obtenerColor }) => {
       cancelButtonText: "Cancelar",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const respuesta = await borrarTareaPorID(nombreColor._id);
+        const respuesta = await borrarColorPorID(nombreColor._id);
         if (respuesta.status === 200) {
           Swal.fire({
             title: "Eliminado",
@@ -40,7 +40,7 @@ const Tarjetas = ({ nombreColor, posicion, obtenerColor }) => {
     });
   };
 
-  const editarColor = async () => {
+  const editarColorCard = async () => {
     const colorParaEditar = { inputColor: colorEditado };
     const respuesta = await editarColor(colorParaEditar, nombreColor._id);
     if (respuesta.status === 200) {
@@ -65,7 +65,7 @@ const Tarjetas = ({ nombreColor, posicion, obtenerColor }) => {
       return;
     }
 
-    editarColor();
+    editarColorCard();
     handleClose();
   };
 

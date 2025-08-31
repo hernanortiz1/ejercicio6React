@@ -1,23 +1,31 @@
-import { Form, Button, Modal, ListGroup} from "react-bootstrap";
+import { Form, Button, Modal, ListGroup } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import ListaTarjetas from "./ListaTarjetas";
-import { leerColor} from "../helpers/queries";
+import { crearColor, leerColor } from "../helpers/queries";
 import Swal from "sweetalert2";
+import { useForm } from "react-hook-form";
 
 const FormularioColor = () => {
-  const [listaColores, setlistaColor] = useState([]);
-  
-  const [validated, setValidated] = useState(false);
+  const [listaColores, setListaColor] = useState([]);
+  const [colorInput, setColorInput] = useState("");
 
+  const [validated, setValidated] = useState(false);
   const [ventanaBusqueda, setVentanaBusqueda] = useState(false);
   const [busqueda, setBusqueda] = useState("");
   const [resultadosBusqueda, setResultadosBusqueda] = useState([]);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   const obtenerColor = async () => {
     const respuesta = await leerColor();
     if (respuesta.status === 200) {
       const datos = await respuesta.json();
-      setlistaColor(datos);
+      setListaColor(datos);
     } else {
       console.info("Error al buscar un color");
     }
@@ -27,13 +35,6 @@ const FormularioColor = () => {
     obtenerColor();
   }, []);
 
-  const handleSubmit = (e) => {
-    const form = e.currentTarget;
-    if (!colorValido(listaColores)) {
-      setValidated(true);
-      return;
-    }
-  };
   const handleShowBusqueda = () => {
     setBusqueda("");
     setResultadosBusqueda([]);
@@ -53,21 +54,15 @@ const FormularioColor = () => {
       return;
     }
 
-    const filtradas = listaColores.filter((ingresoTarea) =>
-      ingresoTarea.inputTarea.toLowerCase().includes(busqueda.toLowerCase())
+    const filtradas = listaColores.filter((color) =>
+      color.inputColor.toLowerCase().includes(busqueda.toLowerCase())
     );
     setResultadosBusqueda(filtradas);
   };
 
-  const colorValido = (listaColores) => {
-    const colorIngresado = new Option().style;
-    colorIngresado.listaColores = listaColores;
-    return colorIngresado.listaColores !== "";
-  };
-
   const onSubmit = async (color) => {
     try {
-      const respuesta = await crearTarea(color);
+      const respuesta = await crearColor(color);
 
       if (respuesta.status === 201) {
         Swal.fire({
@@ -76,7 +71,7 @@ const FormularioColor = () => {
           icon: "success",
         });
         reset();
-        obtenerTareas();
+        obtenerColor();
       } else {
         Swal.fire({
           title: "Error",
@@ -109,20 +104,25 @@ const FormularioColor = () => {
                 <Form.Control
                   type="text"
                   placeholder="Ingresa un color ej: Blue"
-                  onChange={(e) => setlistaColor(e.target.value)}
-                  value={listaColores}
-                  isInvalid={validated && !colorValido(listaColores)}
+                  {...register("inputColor", {
+                    required: "El color es un dato obligatorio",
+                    minLength: {
+                      value: 2,
+                      message: "El color debe tener 2 caracteres como mínimo",
+                    },
+                    maxLength: {
+                      value: 20,
+                      message: "El color debe tener 20 caracteres como máximo",
+                    },
+                  })}
                 />
-                <Form.Control.Feedback>Color valido</Form.Control.Feedback>
-                <Form.Control.Feedback type="invalid">
-                  Color inválido. Ingrese un nombre de color válido
-                </Form.Control.Feedback>
+
                 <div className="d-flex flex-column flex-md-row justify-content-end gap-2 mt-4">
                   <Button type="submit" variant="primary" className="shadow-sm">
                     Guardar
                   </Button>
                   <Button
-                    type="submit"
+                    type="button"
                     variant="success"
                     className="shadow-sm"
                     onClick={handleShowBusqueda}
@@ -131,6 +131,9 @@ const FormularioColor = () => {
                   </Button>
                 </div>
               </Form.Group>
+              <Form.Text className="text-danger">
+                {errors.inputColor?.message}
+              </Form.Text>
             </Form>
           </div>
         </section>
