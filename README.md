@@ -1,16 +1,22 @@
-# 🎨 Formulario de Colores en React
+# 🎨 Frontend - Paleta de Colores en React
 
-Este proyecto es una aplicación simple en React que permite al usuario ingresar un nombre de color, validarlo y mostrarlo visualmente en un cuadro. También mantiene una lista de colores ingresados, con opción a eliminarlos.
+Este proyecto es el **frontend** de la API de Paleta de Colores.  
+Permite a los usuarios **crear, listar, editar, buscar y eliminar** colores mediante un formulario.  
+Los datos se gestionan a través del backend desarrollado con **Express y MongoDB**.  
 
 ---
 
 ## **📌 Tecnologías Usadas**  
-| **Tecnología**       | **Uso**                              |  
-|----------------------|--------------------------------------|  
-| ⚛ React             | Biblioteca principal para la UI.     |  
-| 🎨 React-Bootstrap  | Diseño responsive y componentes.     |  
-| 📝 SweetAlert2      | Ventana de confirmación de borrado . |  
-| 🚀 Vite             | Entorno de desarrollo rápido.        |  
+
+| **Tecnología**       | **Uso**                                         |  
+|----------------------|-------------------------------------------------|  
+| ⚛ React 19          | Biblioteca principal para la UI.                |  
+| 🎨 React-Bootstrap  | Componentes y estilos responsivos.              |  
+| 🟦 Bootstrap 5       | Estilos CSS base.                              |  
+| 📝 SweetAlert2      | Ventanas modales y alertas de confirmación.     |  
+| 📝 React-Hook-Form  | Manejo y validación de formularios.             |  
+| 🔍 Fetch API / Axios| Comunicación con el backend.                     |  
+| 🚀 Vite             | Entorno de desarrollo rápido.                   |  
 
 ---
 
@@ -20,7 +26,7 @@ Este proyecto es una aplicación simple en React que permite al usuario ingresar
 1. **Clona el repositorio**  
    ```bash
    git clone https://github.com/hernanortiz1/ejercicio6React.git
-   cd lista-tareas-react
+   cd ejercicio6
    ```
 
 2. **Instala las dependencias**  
@@ -32,17 +38,16 @@ Este proyecto es una aplicación simple en React que permite al usuario ingresar
    ```bash
    npm run dev
    ```
-   Abre tu navegador en: [http://localhost:5173](http://localhost:5173)  
 
 ---
-## **📋 Funcionalidades Principales** 
+## 📋 Funcionalidades Principales  
 
-- ✅ Ingreso de nombres de colores por texto.
-- ✅ Validación para aceptar solo colores reconocidos por CSS.
-- ✅ Visualización inmediata del color en un cuadro con borde.
-- ✅ Reemplazo del color anterior por uno nuevo.
-- ✅ Listado de colores ingresados con opción de eliminación.
-- ✅ Feedback visual de errores usando `react-bootstrap`.
+- 🎨 **Agregar color** → mediante formulario con validaciones usando `react-hook-form`.  
+- 🖼️ **Visualización de color** → muestra un cuadro con el color ingresado.  
+- 📋 **Listado de colores** → obtenidos desde el backend.  
+- 🗑️ **Eliminar color** → confirmación con SweetAlert2.  
+- 🔍 **Botón Buscar** → permite buscar un color por nombre o código.  
+- ⚠️ **Feedback visual de errores** con `react-bootstrap`.  
 
 ---
 
@@ -52,7 +57,9 @@ src/
 ├── components/  
 │   ├── FormularioColor.jsx        
 │   ├── ListaTarjetas.jsx       
-│   └── Tarjetas.jsx      
+│   └── Tarjetas.jsx
+├── helpers/
+│   ├── queries.js           
 ├── App.jsx               # Componente principal  
 └── main.jsx              # Punto de entrada  
 ```
